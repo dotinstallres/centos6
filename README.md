@@ -1,14 +1,17 @@
-Setup local development environment.  Installs Apache, PHP, MySQL, Ruby and Node.js.  See main.yml for more details.
+Setup local development environment for Dotinstall.com lessons. 
+See main.yml for more details.
 
 ```
-mkdir mycentos && cd mycentos
+mkdir mycentos
+cd mycentos
 vagrant init bento/centos-6.7
-vi Vagrantfile # IP編集
+# Vagrantfileの編集
 vagrant up
 vagrant ssh
 sudo yum -y install git
-git clone https://github.com/dotinstallres/centos65.git
-cd centos65
+sudo yum -y update
+git clone https://github.com/dotinstallres/centos6.git
+cd centos6
 ./run.sh
 exec $SHELL -l
 ```
@@ -20,10 +23,9 @@ cd
 cd mycentos # Vagrantfileがあるフォルダに移動
 vagrant up
 vagrant ssh
-cd centos65
+cd centos6
 git pull --rebase
 ./run.sh
 exec $SHELL -l
 ```
-
 
