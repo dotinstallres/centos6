@@ -4,7 +4,7 @@ See main.yml for more details.
 ```
 mkdir mycentos
 cd mycentos
-vagrant init bento/centos-6.7
+vagrant init bento/centos-6.8
 # Vagrantfileの編集
 vagrant up
 vagrant ssh
