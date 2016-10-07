@@ -3,7 +3,7 @@
   become: yes
   vars:
     - ruby_version: 2.3.1
-    - anaconda_version: 3-4.1.1
+    - python_version: 3.5.2
   tasks:
     - name: disable iptables
       service: name=iptables state=stopped enabled=no
@@ -131,27 +131,33 @@
       git: repo=https://github.com/yyuu/pyenv.git dest=/home/vagrant/.pyenv
       when: pyenv_present.rc != 0
       become: no
+
+    - name: check pyvirtual installed
+      command: test -x /home/vagrant/.rbenv/plugins/pyenv-virtual
+      register: pyvirtual_present
+      ignore_errors: yes
+      become: no
+    - name: git clone pyenv-virtual
+      git: repo=https://github.com/yyuu/pyenv-virtualenv.git dest=/home/vagrant/.pyenv/plugins/pyenv-virtualenv
+      when: pyvirtual_present != 0
+      become: no
+
     - name: update pyenv
       command: git pull --rebase chdir=/home/vagrant/.pyenv
       become: no
-    - name: check anaconda installed
-      shell: /bin/bash -lc "conda -v"
-      register: anaconda_installed
+    - name: update pyenv-virtualenv
+      command: git pull --rebase chdir=/home/vagrant/.pyenv/plugins/pyenv-virtualenv
+      become: no
+
+    - name: check python installed
+      shell: /bin/bash -lc "pyenv versions | grep {{python_version}}"
+      register: python_installed
       ignore_errors: yes
       become: no
-    - name: install anaconda
-      shell: /bin/bash -lc "pyenv install anaconda{{anaconda_version}} && pyenv rehash && pyenv global anaconda{{anaconda_version}}"
-      when: anaconda_installed.rc != 0
+    - name: install python
+      shell: /bin/bash -lc "pyenv install {{python_version}} && pyenv rehash && pyenv global {{python_version}}"
+      when: python_installed.rc != 0
       become: no
-    - name: Add alias for anaconda activate
-      lineinfile:
-        dest=/home/vagrant/.bashrc
-        line='alias activate="source $PYENV_ROOT/versions/anaconda{{anaconda_version}}/bin/activate"'
-        owner=vagrant
-        regexp='^alias activate="source $PYENV_ROOT/versions/anaconda{{anaconda_version}}/bin/activate"$'
-        state=present
-        insertafter=EOF
-        create=True
 
     - name: check node js installed
       shell: /bin/bash -lc "node -v"
@@ -168,4 +174,5 @@
   handlers:
     - name: restart apache
       service: name=httpd state=restarted
+
 
