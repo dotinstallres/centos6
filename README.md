@@ -27,6 +27,7 @@ cd mycentos # Vagrantfileがあるフォルダに移動
 vagrant up
 vagrant ssh
 cd centos6
+sudo yum -y update
 git pull --rebase
 ./run.sh
 exec $SHELL -l
