@@ -141,7 +141,7 @@
       become: no
 
     - name: check pyvirtual installed
-      command: test -x /home/vagrant/.rbenv/plugins/pyenv-virtual
+      command: test -x /home/vagrant/.pyenv/plugins/pyenv-virtual
       register: pyvirtual_present
       ignore_errors: yes
       become: no
