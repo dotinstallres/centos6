@@ -50,8 +50,16 @@
       copy: src=php.ini.custom dest=/etc/php.ini backup=yes
       notify:
         - restart apache
+
+    - name: install mysql repository
+      command: rpm -Uvh --force http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
     - name: install mysql
-      yum: name=mysql-server enablerepo=remi,epel state=present
+      yum: name={{item}} state=present
+      with_items:
+        - mysql
+        - mysql-devel
+        - mysql-server
+        - mysql-utilities
     - name: copy my.cnf.custom
       copy: src=my.cnf.custom dest=/etc/my.cnf backup=yes
     - name: start mysql and enabled
@@ -174,5 +182,7 @@
   handlers:
     - name: restart apache
       service: name=httpd state=restarted
+
+
 
 
