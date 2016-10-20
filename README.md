@@ -1,6 +1,6 @@
 Setup local development environment for [Dotinstall.com](http://dotinstall.com/) lessons. 
 
-#### how to install
+#### how to install (for macOS)
 
 ```
 # ホームディレクトリに移動
@@ -33,7 +33,7 @@ cd centos6
 exec $SHELL -l
 ```
 
-#### how to update
+#### how to update (for macOS)
 
 If you need to update the environment, please follow instructions below.
 
