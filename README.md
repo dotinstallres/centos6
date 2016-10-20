@@ -46,8 +46,12 @@ cd MyVagrant
 cd MyCentOS
 # 仮想マシンを起動する（少し時間かかります）
 vagrant up
+# 仮想マシンにログイン
+vagrant ssh
 # OSを最新状態にアップデート（時間かかります）
 sudo yum -y update
+# centos6フォルダに移動
+cd centos6
 # gitを使ってアプリケーション設定用のスクリプトを更新
 git pull --rebase
 # スクリプトを実行（時間かかります）
