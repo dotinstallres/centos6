@@ -29,6 +29,10 @@
       service: name=httpd state=started enabled=yes
     - name: change owner
       file: dest=/var/www/html owner=vagrant recurse=yes
+    - name: copy httpd.conf
+      copy: src=httpd.conf.custom dest=/etc/httpd/conf/httpd.conf backup=yes
+      notify:
+        - restart apache
     - name: install gd-last
       yum: name=gd-last enablerepo=remi state=latest
     - name: install php
