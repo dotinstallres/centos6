@@ -19,6 +19,8 @@ vagrant init bento/centos-6.8
 sed -i '' -e 's/# config.vm.network "private_network", ip: "192.168.33.10"/config.vm.network "private_network", ip: "192.168.33.10"/' Vagrantfile
 # 仮想マシンを起動する（少し時間かかります）
 vagrant up
+# 仮想マシンにログイン
+vagrant ssh
 # OSを最新状態にアップデート（時間かかります）
 sudo yum -y update
 # スクリプトを入手するためのgitをインストール
