@@ -182,6 +182,9 @@
     - name: install nodejs
       yum: name=nodejs state=latest
       when: node_installed.rc != 0
+    - name: install npm
+      yum: name=npm state=latest
+      when: node_installed.rc != 0
 
   handlers:
     - name: restart apache
