@@ -1,5 +1,7 @@
 Setup local development environment for [Dotinstall.com](http://dotinstall.com/) lessons. 
 
+なお、ご不明な点がある場合はドットインストールの[お問合わせフォーム](https://dotinstall.com/contact)よりお問合わせください。
+
 #### how to install (for macOS)
 
 ```
