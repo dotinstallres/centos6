@@ -39,18 +39,20 @@
     - name: install gd-last
       yum: name=gd-last enablerepo=remi state=latest
     - name: install php
-      yum: name={{item}} enablerepo=remi-php56 state=present
-      with_items:
-        - php
-        - php-common
-        - php-pdo
-        - php-cli
-        - php-devel
-        - php-mysqlnd
-        - php-mbstring
-        - php-gd
-        - php-intl
-        - php-xml
+      yum:
+        name:
+          - php
+          - php-common
+          - php-pdo
+          - php-cli
+          - php-devel
+          - php-mysqlnd
+          - php-mbstring
+          - php-gd
+          - php-intl
+          - php-xml
+        enablerepo: remi-php56
+        state: present
       notify:
         - restart apache
     - name: copy php.ini.custom
@@ -61,41 +63,44 @@
     - name: install mysql repository
       command: rpm -Uvh --force http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
     - name: install mysql
-      yum: name={{item}} state=present
-      with_items:
-        - mysql
-        - mysql-devel
-        - mysql-server
-        - mysql-utilities
+      yum:
+        name:
+          - mysql
+          - mysql-devel
+          - mysql-server
+          - mysql-utilities
+        state: present
     - name: copy my.cnf.custom
       copy: src=my.cnf.custom dest=/etc/my.cnf backup=yes
     - name: start mysql and enabled
       service: name=mysqld state=started enabled=yes
     - name: install ruby dependencies
-      yum: name={{item}} enablerepo=remi,epel state=present
-      with_items:
-        - gcc
-        - openssl
-        - openssl-devel
-        - rpm-build
-        - gcc-c++
-        - bzip2
-        - bzip2-devel
-        - libtool
-        - zlib
-        - zlib-devel
-        - httpd-devel
-        - openssl-devel
-        - curl-devel
-        - ncurses-devel
-        - gdbm-devel
-        - readline
-        - readline-devel
-        - sqlite
-        - sqlite-devel
-        - libyaml-devel
-        - libffi-devel
-        - bison
+      yum:
+        name:
+          - gcc
+          - openssl
+          - openssl-devel
+          - rpm-build
+          - gcc-c++
+          - bzip2
+          - bzip2-devel
+          - libtool
+          - zlib
+          - zlib-devel
+          - httpd-devel
+          - openssl-devel
+          - curl-devel
+          - ncurses-devel
+          - gdbm-devel
+          - readline
+          - readline-devel
+          - sqlite
+          - sqlite-devel
+          - libyaml-devel
+          - libffi-devel
+          - bison
+        enablerepo: remi,epel
+        state: present
 
     - name: check rbenv installed
       command: test -x /home/vagrant/.rbenv
