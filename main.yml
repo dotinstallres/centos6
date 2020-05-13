@@ -13,12 +13,6 @@
       file: path=/etc/localtime state=absent
     - name: change timezone
       file: src=/usr/share/zoneinfo/Asia/Tokyo dest=/etc/localtime state=link force=yes mode=0644
-    - name: change locale
-      lineinfile: >-
-        dest=/etc/sysconfig/i18n
-        state=present
-        regexp=^LANG=
-        line='LANG="ja_JP.UTF-8"'
     - name: install remi repository
       command: rpm -Uvh --force http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
     - name: install man
@@ -185,6 +179,13 @@
     - name: install npm
       yum: name=npm state=latest
       when: node_installed.rc != 0
+
+    - name: change locale
+      lineinfile: >-
+        dest=/etc/sysconfig/i18n
+        state=present
+        regexp=^LANG=
+        line='LANG="ja_JP.UTF-8"'
 
   handlers:
     - name: restart apache
